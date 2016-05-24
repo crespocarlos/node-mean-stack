@@ -1,49 +1,46 @@
 var express = require('express'),
-    stylus = require('stylus'),
-    logger = require('morgan'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
+    passport = require('passport'),
     mongoose = require('mongoose');
+    LocalStrategy = require('passport-local').Strategy;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
+var config = require('./server/config/config')[env];
 
-function compile(str, path) {
-    return stylus(str).set('filename', path);
-}
+require('./server/config/express')(app, config);
+require('./server/config/mongoose')(config);
+require('./server/config/routes')(app);
 
-app.set('views', [path.join(__dirname, '/server/views'), path.join(__dirname, '/server/views/partials')])
-app.set('view engine', 'jade');
-app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(stylus.middleware({
-    src: __dirname + '/public',
-    compile: compile
-}));
-app.use(express.static(__dirname + '/public'));
+var User = mongoose.model('User');
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+        User.findOne({ userName: username })
+            .exec(function (err, user) {
+                if (user) {
+                    return done(null, user);
+                } else {
+                    return done(null, false);
+                }
+            });
+    }
+));
 
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost/multivision');
-} else {
-    mongoose.connect('mongodb://ccrespo:multivision@ds011943.mlab.com:11943/multivision');
-}
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function callback() {
-    console.log('db open');
+passport.serializeUser(function (user, done) {
+    if (user) {
+        done(null, user._id);
+    }
 });
 
-app.get('/partials/:partialPath', function (req, res) {
-    res.render('partials/' + req.params.partialPath);
-});
+passport.deserializeUser(function (id, done) {
+    User.findOne({ _id: id }).exec(function (err, user) {
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
+    });
+})
 
-app.get('/', function (req, res) {
-    res.render('index');
-});
-
-var port = process.env.PORT || 3000;
-app.listen(port);
-console.log('escutando a porta ' + port);
+app.listen(config.port);
+console.log('escutando a porta ' + config.port);
