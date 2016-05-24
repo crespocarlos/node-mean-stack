@@ -1,0 +1,19 @@
+{
+  "name": "multi-vision",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Carlos Crespo <carlos.hcrespo@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "toastr": "^2.1.2",
+    "angular": "^1.5.5",
+    "angular-resource": "^1.5.5",
+    "angular-route": "^1.5.5"
+  }
+}
