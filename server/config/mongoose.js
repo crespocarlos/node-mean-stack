@@ -66,7 +66,7 @@ function createSalt() {
 }
 
 function hashPwd(salt, pwd) {
-    var hmac = crypto.createHmac('sha1', salt);
+    var hmac = crypto.createHmac('sha1', new Buffer(salt, 'utf-8'));
     hmac.setEncoding('hex');
     hmac.write(pwd);
     hmac.end()
