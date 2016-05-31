@@ -1,6 +1,12 @@
 var User = require('mongoose').model('User'),
     encryption = require('../utilities/encryption');
 
+exports.checkUserNameAvailable = function (req, res) {
+    User.findOne({ userName: req.params.userName }, function (err, user) {
+        res.send(!user);
+    });
+};
+
 exports.getUsers = function (req, res) {
     User.find({}).exec(function (err, collection) {
         res.send(collection);

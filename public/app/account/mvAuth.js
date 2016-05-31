@@ -19,6 +19,14 @@
 
                     return dfd.promise;
                 },
+                checkUniqueness: function (username) {
+                    var dfd = $q.defer();
+                    $http.get('/api/users/checkUniqueness/' + username).then(function (response) {
+                        dfd.resolve(response.data);
+                    });
+
+                    return dfd.promise;
+                },
                 createUser: function (newUserData) {
                     var newUser = new mvUser(newUserData),
                         dfd = $q.defer();
