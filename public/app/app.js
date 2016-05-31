@@ -23,6 +23,11 @@
                     templateUrl: '/partials/admin/user-list',
                     controller: 'mvUserListCtrl',
                     resolve: routeRouteChecks.admin
+                })
+                .when('/signup',
+                {
+                    templateUrl: '/partials/account/signup',
+                    controller: 'mvSignupCtrl'
                 });
         }
     ]);

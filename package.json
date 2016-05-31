@@ -27,6 +27,11 @@
   },
   "devDependencies": {
     "bower": "^1.7.9",
+    "karma": "^0.13.22",
+    "karma-chai-plugins": "^0.7.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-mocha": "^1.0.1",
+    "mocha": "^2.5.3",
     "typings": "^1.0.4"
   }
 }

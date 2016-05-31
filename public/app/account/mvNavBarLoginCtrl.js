@@ -10,7 +10,7 @@
                     if (success) {
                         mvNotifier.notify('Logged in!');
                     } else {
-                        mvNotifier.notify('Wrong username or passord');
+                        mvNotifier.error('Wrong username or passord');
                     }
                 });
             }
