@@ -1,19 +1,20 @@
 (function () {
     'use strict';
 
-    angular.module('app').factory('mvUser', ['$resource', function ($resource) {
-        var UserResource = $resource('/api/users/:id',
-            {
-                _id: '@id'
-            },
-            {
-                update: { method: 'PUT', isArray: false }
-            });
+    angular.module('app').factory('mvUser', ['$resource',
+        function ($resource) {
+            var UserResource = $resource('/api/users/:id',
+                {
+                    _id: '@id'
+                },
+                {
+                    update: { method: 'PUT', isArray: false }
+                });
 
-        UserResource.prototype.isAdmin = function () {
-            return this.roles && this.roles.indexOf('admin') > -1;
-        }
+            UserResource.prototype.isAdmin = function () {
+                return this.roles && this.roles.indexOf('admin') > -1;
+            }
 
-        return UserResource;
-    }]);
+            return UserResource;
+        }]);
 })();

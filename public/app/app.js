@@ -42,6 +42,11 @@
                 {
                     templateUrl: '/partials/courses/course-list',
                     controller: 'mvCourseListCtrl'
+                })
+                .when('/courses/:id',
+                {
+                    templateUrl: '/partials/courses/course-detail',
+                    controller: 'mvCourseDetailCtrl'
                 });
         }
     ]);
