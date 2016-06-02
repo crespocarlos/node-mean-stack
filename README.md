@@ -2,6 +2,9 @@
 Web application using the Full MEAN stack, done in order to learn more about angularJS
 
 # Course
+
+the course below is awesome
+
 https://app.pluralsight.com/library/courses/building-angularjs-nodejs-apps-mean/table-of-contents
 
 # Technologies
